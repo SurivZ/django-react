@@ -10,7 +10,7 @@ import {
     GET_SEARCH_BLOG_FAIL
 } from "./types"
 
-export const get_blog_list = () => async dispatch => {
+export const getBlogList = () => async dispatch => {
 
     const config = {
         headers: {
@@ -39,7 +39,7 @@ export const get_blog_list = () => async dispatch => {
     }
 }
 
-export const get_blog_list_page = (p) => async dispatch => {
+export const getBlogListPage = (p) => async dispatch => {
 
     const config = {
         headers: {
@@ -68,7 +68,7 @@ export const get_blog_list_page = (p) => async dispatch => {
     }
 }
 
-export const get_blog_list_category = (category_id) => async dispatch => {
+export const getBlogListCategory = (category_id) => async dispatch => {
 
     const config = {
         headers: {
@@ -98,7 +98,7 @@ export const get_blog_list_category = (category_id) => async dispatch => {
 }
 
 
-export const get_blog_list_category_page = (category_id, p) => async dispatch => {
+export const getBlogListCategoryPage = (category_id, p) => async dispatch => {
 
     const config = {
         headers: {
@@ -127,7 +127,7 @@ export const get_blog_list_category_page = (category_id, p) => async dispatch =>
     }
 }
 
-export const get_blog = (slug) => async dispatch => {
+export const getBlog = (slug) => async dispatch => {
 
     const config = {
         headers: {
@@ -155,7 +155,7 @@ export const get_blog = (slug) => async dispatch => {
     }
 };
 
-export const search_blog = (search_term) => async dispatch => {
+export const searchBlog = (search_term) => async dispatch => {
 
     const config = {
         headers: {
