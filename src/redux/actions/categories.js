@@ -4,7 +4,7 @@ import {
     GET_CATEGORIES_FAIL
 } from './types';
 
-export const get_categories = () => async dispatch => {
+export const getCategories = () => async dispatch => {
     const config = {
         headers: {
             'Accept': 'application/json'

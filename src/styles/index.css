@@ -5,3 +5,7 @@
 .active {
   @apply dark:text-blue-500;
 }
+
+.error, .content {
+  height: 74.3vh;
+}

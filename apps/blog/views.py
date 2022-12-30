@@ -24,20 +24,17 @@ class BlogListView(APIView):
         return Response({'error': 'No posts found'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-# class BlogListCategoryView(APIView):
-#     def get(self, request, category_id, format=None):
-#         if Post.postobjects.all().exists():
+class BlogListCategoryView(APIView):
+    def get(self, request, category_id, format=None):
+        if Post.postobjects.all().exists():
+            category = Category.objects.get(id=category_id)
+            posts = Post.postobjects.all().filter(category=category)
+            paginator = SmallSetPagination()
+            results = paginator.paginate_queryset(posts, request)
+            serializer = PostSerializer(results, many=True)
 
-#             category = Category.objects.get(id=category_id)
-#             posts = Post.postobjects.all().filter(category=category)
-
-#             paginator = SmallSetPagination()
-#             results = paginator.paginate_queryset(posts, request)
-#             serializer = PostSerializer(results, many=True)
-
-#             return paginator.get_paginated_response({'posts': serializer.data})
-#         else:
-#             return Response({'error': 'No posts found'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return paginator.get_paginated_response({'posts': serializer.data})
+        return Response({'error': 'No posts found'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class PostDetailView(APIView):
@@ -47,15 +44,14 @@ class PostDetailView(APIView):
         return Response({'post': serializer.data}, status=status.HTTP_200_OK)
 
 
-# class SearchBlogView(APIView):
-#     def get(self, request, search_term):
-#         matches = Post.postobjects.filter(
-#             Q(title__icontains=search_term) |
-#             Q(description__icontains=search_term) |
-#             Q(category__name__icontains=search_term)
-#         )
-
-#         paginator = MediumSetPagination()
-#         # results = paginator.paginate_queryset(matches, request)
-#         serializer = PostSerializer(matches, many=True)
-#         return Response({'filtered_posts': serializer.data}, status=status.HTTP_200_OK)
+class SearchBlogView(APIView):
+    def get(self, request, search_term):
+        matches = Post.postobjects.filter(
+            Q(title__icontains=search_term) |
+            Q(description__icontains=search_term) |
+            Q(category__name__icontains=search_term)
+        )
+        paginator = MediumSetPagination()
+        # results = paginator.paginate_queryset(matches, request)
+        serializer = PostSerializer(matches, many=True)
+        return Response({'filtered_posts': serializer.data}, status=status.HTTP_200_OK)

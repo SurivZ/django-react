@@ -2,6 +2,7 @@ import { Menu, Popover } from '@headlessui/react'
 import { SearchIcon } from '@heroicons/react/solid'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import { NavLink } from 'react-router-dom'
+import { useState } from "react"
 
 const navigation = [
   { name: 'Blog', href: '/blog', current: true },
@@ -14,6 +15,19 @@ function classNames(...classNames) {
 }
 
 export default function Example() {
+  const [effectSearch, setEffectSearch] = useState(false)
+  const [term, setTerm] = useState('')
+
+  const handleChange = e => {
+    setTerm(e.target.value)
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    setTimeout(() => window.location.href = (`/search/${term}`), 0.2)
+    setTerm('')
+  }
+
   return (
     <>
       {/* When the mobile menu is open, add `overflow-hidden` to the `body` element to prevent double scrollbars */}
@@ -40,23 +54,25 @@ export default function Example() {
                 </div>
                 <div className="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-6">
                   <div className="flex items-center px-6 py-4 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
-                    <div className="w-full">
+                    <form onSubmit={e => { handleSubmit(e) }} className="w-full">
                       <label htmlFor="search" className="sr-only">
                         Search
                       </label>
                       <div className="relative">
-                        <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
+                        <button type='submit' className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
                           <SearchIcon className="text-black h-5 w-5 dark:text-gray-50" aria-hidden="true" />
-                        </div>
+                        </button>
                         <input
                           id="search"
                           name="search"
+                          required
+                          onChange={e => { handleChange(e) }}
                           className="block w-full bg-gray-100 border border-gray-300 dark:bg-gray-900 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 dark:focus:text-gray-100 focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           placeholder="Search"
                           type="search"
                         />
                       </div>
-                    </div>
+                    </form>
                   </div>
                 </div>
                 <div className="flex items-center md:absolute md:right-0 md:inset-y-0 lg:hidden">

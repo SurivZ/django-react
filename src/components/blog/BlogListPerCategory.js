@@ -1,12 +1,10 @@
 import { connect } from "react-redux"
-import { useEffect } from "react"
-import { getBlogList, getBlogListPage } from "redux/actions/blog"
 import LoadingCard from "components/loaders/LoadingCard"
 import BlogCard from "./BlogCard"
 import Pagination from "components/pagination/Pagination"
 
-const BlogList = ({ blogList, getBlogList, getBlogListPage, count }) => {
-    useEffect(() => { getBlogList() }, [])
+const BlogListPerCategory = ({ blogList, getBlogListPage, count }) => {
+
 
     return (
         <div>
@@ -29,6 +27,6 @@ const BlogList = ({ blogList, getBlogList, getBlogListPage, count }) => {
     )
 }
 
-const mapStateToProps = state => ({ blogList: state.blog.blog_list, count: state.blog.count })
+const mapStateToProps = state => ({})
 
-export default connect(mapStateToProps, { getBlogList, getBlogListPage })(BlogList)
+export default connect(mapStateToProps, {})(BlogListPerCategory)
